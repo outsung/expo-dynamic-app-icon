@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "expo-dynamic-app-icon-example",
+    "slug": "expo-dynamic-app-icon-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "expo.modules.dynamicappicon.example"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "expo.modules.dynamicappicon.example"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "../app.plugin",
+        {
+          "1": {
+            "image": "./assets/icon1.png",
+            "prerendered": true
+          },
+          "2": {
+            "image": "./assets/icon2.png",
+            "prerendered": true
+          }
+        }
+      ]
+    ]
+  }
+}

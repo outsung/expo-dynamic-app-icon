@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-dynamic-app-icon": ["../src/index"],
+      "expo-dynamic-app-icon/*": ["../src/*"]
+    }
+  }
+}
