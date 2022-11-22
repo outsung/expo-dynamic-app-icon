@@ -33,11 +33,11 @@
       [
         "../app.plugin",
         {
-          "1": {
+          "red": {
             "image": "./assets/icon1.png",
             "prerendered": true
           },
-          "2": {
+          "gray": {
             "image": "./assets/icon2.png",
             "prerendered": true
           }

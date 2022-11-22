@@ -5,12 +5,21 @@ import {
   withDangerousMod,
   withInfoPlist,
   withXcodeProject,
+  withAndroidManifest,
+  AndroidConfig,
+  AndroidManifest,
 } from "@expo/config-plugins";
 import { generateImageAsync } from "@expo/image-utils";
 import fs from "fs";
 import path from "path";
 // @ts-ignore
 import pbxFile from "xcode/lib/pbxFile";
+
+const {
+  addMetaDataItemToMainApplication,
+  getMainApplicationOrThrow,
+  addUsesLibraryItemToMainApplication,
+} = AndroidConfig.Manifest;
 
 const folderName = "DynamicAppIcons";
 const size = 60;
@@ -43,9 +52,13 @@ const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
     prepped = _props;
   }
 
+  // for ios
   config = withIconXcodeProject(config, { icons: prepped });
   config = withIconInfoPlist(config, { icons: prepped });
   config = withIconImages(config, { icons: prepped });
+
+  // for aos
+  config = withIconAndroidManifest(config, { icons: prepped });
   return config;
 };
 
@@ -57,6 +70,55 @@ function getIconName(name: string, size: number, scale?: number) {
   }
   return fileName;
 }
+
+const withIconAndroidManifest: ConfigPlugin<Props> = (config, { icons }) => {
+  return withAndroidManifest(config, (config) => {
+    const mainApplication: any = getMainApplicationOrThrow(config.modResults);
+
+    const iconNamePrefix = `${config.android!.package}.MainActivity`;
+    const iconNames = Object.keys(icons);
+
+    function addIconActivityAlias(config: any[]): any[] {
+      return [
+        ...config,
+        ...iconNames.map((iconName) => ({
+          $: {
+            "android:name": `${iconNamePrefix}${iconName}`,
+            "android:enabled": "false",
+            "android:exported": "true",
+            "android:icon": `@mipmap/${iconName}`,
+            "android:targetActivity": ".MainActivity",
+          },
+          "intent-filter": [
+            {
+              action: [{ $: { "android:name": "android.intent.action.MAIN" } }],
+              category: [
+                { $: { "android:name": "android.intent.category.LAUNCHER" } },
+              ],
+            },
+          ],
+        })),
+      ];
+    }
+    function removeIconActivityAlias(config: any[]): any[] {
+      return config.filter(
+        (activityAlias) =>
+          !(activityAlias.$["android:name"] as string).startsWith(
+            iconNamePrefix
+          )
+      );
+    }
+
+    mainApplication["activity-alias"] = removeIconActivityAlias(
+      mainApplication["activity-alias"] || []
+    );
+    mainApplication["activity-alias"] = addIconActivityAlias(
+      mainApplication["activity-alias"] || []
+    );
+
+    return config;
+  });
+};
 
 const withIconXcodeProject: ConfigPlugin<Props> = (config, { icons }) => {
   return withXcodeProject(config, async (config) => {
