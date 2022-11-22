@@ -4,12 +4,12 @@
   "scripts": {
     "start": "expo start --dev-client",
     "prebuild": "expo prebuild",
-    "android": "expo run:android",
+    "android": "source ~/.bash_profile && expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~47.0.6",
+    "expo": "~47.0.7",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",

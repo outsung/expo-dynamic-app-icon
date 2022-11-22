@@ -15,7 +15,5 @@ class ExpoDynamicAppIconModule : Module() {
     Function("getIconName") {
       "Hello world! 👋"
     }
-
-    
   }
 }
