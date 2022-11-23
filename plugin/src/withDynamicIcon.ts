@@ -21,9 +21,19 @@ const {
   addUsesLibraryItemToMainApplication,
 } = AndroidConfig.Manifest;
 
-const folderName = "DynamicAppIcons";
-const size = 60;
-const scales = [2, 3];
+const androidFolderPath = ["app", "src", "main", "res"];
+const androidFolderNames = [
+  "mipmap-hdpi",
+  "mipmap-mdpi",
+  "mipmap-xhdpi",
+  "mipmap-xxhdpi",
+  "mipmap-xxxhdpi",
+];
+const androidSize = [162, 108, 216, 324, 432];
+
+const iosFolderName = "DynamicAppIcons";
+const iosSize = 60;
+const iosScales = [2, 3];
 
 type IconSet = Record<string, { image: string; prerendered?: boolean }>;
 
@@ -55,22 +65,16 @@ const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
   // for ios
   config = withIconXcodeProject(config, { icons: prepped });
   config = withIconInfoPlist(config, { icons: prepped });
-  config = withIconImages(config, { icons: prepped });
+  config = withIconIosImages(config, { icons: prepped });
 
   // for aos
   config = withIconAndroidManifest(config, { icons: prepped });
+  config = withIconAndroidImages(config, { icons: prepped });
+
   return config;
 };
 
-function getIconName(name: string, size: number, scale?: number) {
-  const fileName = `${name}-Icon-${size}x${size}`;
-
-  if (scale != null) {
-    return `${fileName}@${scale}x.png`;
-  }
-  return fileName;
-}
-
+// for aos
 const withIconAndroidManifest: ConfigPlugin<Props> = (config, { icons }) => {
   return withAndroidManifest(config, (config) => {
     const mainApplication: any = getMainApplicationOrThrow(config.modResults);
@@ -120,9 +124,93 @@ const withIconAndroidManifest: ConfigPlugin<Props> = (config, { icons }) => {
   });
 };
 
+const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
+  return withDangerousMod(config, [
+    "android",
+    async (config) => {
+      const androidResPath = path.join(
+        config.modRequest.platformProjectRoot,
+        ...androidFolderPath
+      );
+
+      const removeIconRes = async () => {
+        for (let i = 0; androidFolderNames.length > i; i += 1) {
+          const folder = path.join(androidResPath, androidFolderNames[i]);
+
+          const files = await fs.promises.readdir(folder).catch(() => []);
+          for (let j = 0; files.length > j; j += 1) {
+            console.log("check: ", androidFolderNames[i], files[j]);
+            if (!files[j].startsWith("ic_launcher")) {
+              console.log("remove: ", androidFolderNames[i], files[j]);
+              await fs.promises
+                .rm(path.join(folder, files[j]), { force: true })
+                .catch(() => null);
+            }
+          }
+        }
+      };
+      const addIconRes = async () => {
+        for (let i = 0; androidFolderNames.length > i; i += 1) {
+          const size = androidSize[i];
+          const outputPath = path.join(androidResPath, androidFolderNames[i]);
+
+          for (const [name, { image }] of Object.entries(icons)) {
+            const fileName = `${name}.png`;
+            console.log("addIconRes : ", androidFolderNames[i], fileName);
+
+            const { source } = await generateImageAsync(
+              {
+                projectRoot: config.modRequest.projectRoot,
+                cacheType: "react-native-dynamic-app-icon",
+              },
+              {
+                name: fileName,
+                src: image,
+                // removeTransparency: true,
+                backgroundColor: "#ffffff",
+                resizeMode: "cover",
+                width: size,
+                height: size,
+              }
+            );
+            await fs.promises.writeFile(
+              path.join(outputPath, fileName),
+              source
+            );
+          }
+        }
+        // for (const size of ) {
+        //   // size
+        //   const iconFileName = "";
+        //   const fileName = path.join(iosFolderName, iconFileName);
+        //   const outputPath = path.join(iosRoot, fileName);
+
+        //   const scaledSize = scale * iosSize;
+
+        // }
+      };
+
+      await removeIconRes();
+      await addIconRes();
+
+      return config;
+    },
+  ]);
+};
+
+// for ios
+function getIconName(name: string, size: number, scale?: number) {
+  const fileName = `${name}-Icon-${size}x${size}`;
+
+  if (scale != null) {
+    return `${fileName}@${scale}x.png`;
+  }
+  return fileName;
+}
+
 const withIconXcodeProject: ConfigPlugin<Props> = (config, { icons }) => {
   return withXcodeProject(config, async (config) => {
-    const groupPath = `${config.modRequest.projectName!}/${folderName}`;
+    const groupPath = `${config.modRequest.projectName!}/${iosFolderName}`;
     const group = IOSConfig.XcodeUtils.ensureGroupRecursively(
       config.modResults,
       groupPath
@@ -172,8 +260,8 @@ const withIconXcodeProject: ConfigPlugin<Props> = (config, { icons }) => {
     // Link new assets
 
     await iterateIconsAsync({ icons }, async (key, icon, index) => {
-      for (const scale of scales) {
-        const iconFileName = getIconName(key, size, scale);
+      for (const scale of iosScales) {
+        const iconFileName = getIconName(key, iosSize, scale);
 
         if (
           !group?.children.some(
@@ -210,7 +298,7 @@ const withIconInfoPlist: ConfigPlugin<Props> = (config, { icons }) => {
         CFBundleIconFiles: [
           // Must be a file path relative to the source root (not a icon set it seems).
           // i.e. `Bacon-Icon-60x60` when the image is `ios/somn/appIcons/Bacon-Icon-60x60@2x.png`
-          getIconName(key, size),
+          getIconName(key, iosSize),
         ],
         UIPrerenderedIcon: !!icon.prerendered,
       };
@@ -242,7 +330,7 @@ const withIconInfoPlist: ConfigPlugin<Props> = (config, { icons }) => {
   });
 };
 
-const withIconImages: ConfigPlugin<Props> = (config, props) => {
+const withIconIosImages: ConfigPlugin<Props> = (config, props) => {
   return withDangerousMod(config, [
     "ios",
     async (config) => {
@@ -263,18 +351,20 @@ async function createIconsAsync(
 
   // Delete all existing assets
   await fs.promises
-    .rm(path.join(iosRoot, folderName), { recursive: true, force: true })
+    .rm(path.join(iosRoot, iosFolderName), { recursive: true, force: true })
     .catch(() => null);
   // Ensure directory exists
-  await fs.promises.mkdir(path.join(iosRoot, folderName), { recursive: true });
+  await fs.promises.mkdir(path.join(iosRoot, iosFolderName), {
+    recursive: true,
+  });
   // Generate new assets
   await iterateIconsAsync({ icons }, async (key, icon) => {
-    for (const scale of scales) {
-      const iconFileName = getIconName(key, size, scale);
-      const fileName = path.join(folderName, iconFileName);
+    for (const scale of iosScales) {
+      const iconFileName = getIconName(key, iosSize, scale);
+      const fileName = path.join(iosFolderName, iconFileName);
       const outputPath = path.join(iosRoot, fileName);
 
-      const scaledSize = scale * size;
+      const scaledSize = scale * iosSize;
       const { source } = await generateImageAsync(
         {
           projectRoot: config.modRequest.projectRoot,
