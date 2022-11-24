@@ -3089,10 +3089,10 @@ expo-status-bar@~1.4.2:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.4.2.tgz#14f2b9a6dc7d550578421f07e0046f5fafc2b403"
   integrity sha512-ZWjO6D4ARGYfAd3SWDD3STNudHDhyBZDZjhhseqoEmsf7bS9ykny8KKOhlzJW24qIQNPhkgdvHhaw9fQwMJy3Q==
 
-expo@~47.0.7:
-  version "47.0.7"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-47.0.7.tgz#4fe95529c6b1e6d8026a164847ce1048f6dc5ccd"
-  integrity sha512-uHTxvPdD4K7W277tXVAdFmgjSZ0Hg+0g5bnez0jXyXQINa+0CTtGmulgFehBOrbrUZBqwosN0K8TsrxADwcXZQ==
+expo@~47.0.8:
+  version "47.0.8"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-47.0.8.tgz#80390fd63f8305103445069c647011915f7c32dd"
+  integrity sha512-PGNCIvrnYwHH4TDFsVocq/xhWZ5DW8N3bLkZJPZZgX6VgjtVLNsbZ+0lm1inLCZHP+6xSpSKRccjGHO/QQoMBQ==
   dependencies:
     "@babel/runtime" "^7.14.0"
     "@expo/cli" "0.4.10"
