@@ -93,14 +93,14 @@ const withIconAndroidManifest: ConfigPlugin<Props> = (config, { icons }) => {
             "android:icon": `@mipmap/${iconName}`,
             "android:targetActivity": ".MainActivity",
           },
-          "intent-filter": [
-            {
-              action: [{ $: { "android:name": "android.intent.action.MAIN" } }],
-              category: [
-                { $: { "android:name": "android.intent.category.LAUNCHER" } },
-              ],
-            },
-          ],
+          // "intent-filter": [
+          //   {
+          //     action: [{ $: { "android:name": "android.intent.action.MAIN" } }],
+          //     category: [
+          //       { $: { "android:name": "android.intent.category.LAUNCHER" } },
+          //     ],
+          //   },
+          // ],
         })),
       ];
     }
