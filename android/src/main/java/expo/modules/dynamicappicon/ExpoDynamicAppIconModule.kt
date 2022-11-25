@@ -28,7 +28,8 @@ class ExpoDynamicAppIconModule : Module() {
           PackageManager.DONT_KILL_APP
         )
 
-        SharedObject.classesToKill.add(icon)
+        var _icon:String = if(icon.toBoolean()) icon else context.packageName + ".MainActivity"
+        SharedObject.classesToKill.add(_icon)
         icon = newIcon
 
         return@Function name
@@ -44,10 +45,11 @@ class ExpoDynamicAppIconModule : Module() {
     }
   }
 
-  private var icon: String = context.packageName + ".MainActivity"
   
   private val context: Context
     get() = requireNotNull(appContext.reactContext) { "React Application Context is null" }
+  
+  private var icon: String = "" 
 
   private val currentActivity
     get() = requireNotNull(appContext.activityProvider?.currentActivity)
