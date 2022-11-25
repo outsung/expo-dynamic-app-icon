@@ -1,6 +1,6 @@
 {
   "name": "expo-dynamic-app-icon",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Programmatically change the app icon in Expo.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
