@@ -19,17 +19,11 @@ class ExpoDynamicAppIconModule : Module() {
 
     Function("setAppIcon") { name: String ->
 
-      // expo.modules.dynamicappicon.example.MainActivityred
-      // expo.modules.dynamicappicon/expo.modules.dynamicappicon.MainActivitygray
-
-      
-      // PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-      // PackageManager.DONT_KILL_APP
       try {
-        var newIcon:String = "expo.modules.dynamicappicon.example" + ".MainActivity" + name
+        var newIcon:String = context.packageName + ".MainActivity" + name
         
         pm.setComponentEnabledSetting(
-          ComponentName("expo.modules.dynamicappicon.example", newIcon),
+          ComponentName(context.packageName, newIcon),
           PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
           PackageManager.DONT_KILL_APP
         )
@@ -50,7 +44,7 @@ class ExpoDynamicAppIconModule : Module() {
     }
   }
 
-  private var icon: String = "expo.modules.dynamicappicon.example" + ".MainActivity"
+  private var icon: String = context.packageName + ".MainActivity"
   
   private val context: Context
     get() = requireNotNull(appContext.reactContext) { "React Application Context is null" }

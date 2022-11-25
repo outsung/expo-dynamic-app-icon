@@ -18,7 +18,7 @@ class ExpoDynamicAppIconReactActivityLifecycleListener : ReactActivityLifecycleL
   override fun onPause(activity: Activity) {
     SharedObject.classesToKill.forEach{ cls ->
       activity.packageManager.setComponentEnabledSetting(
-        ComponentName("expo.modules.dynamicappicon.example", cls),
+        ComponentName(activity.packageName, cls),
         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
         PackageManager.DONT_KILL_APP
       )
