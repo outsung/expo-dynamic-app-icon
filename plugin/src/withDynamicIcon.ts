@@ -139,9 +139,7 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
 
           const files = await fs.promises.readdir(folder).catch(() => []);
           for (let j = 0; files.length > j; j += 1) {
-            console.log("check: ", androidFolderNames[i], files[j]);
             if (!files[j].startsWith("ic_launcher")) {
-              console.log("remove: ", androidFolderNames[i], files[j]);
               await fs.promises
                 .rm(path.join(folder, files[j]), { force: true })
                 .catch(() => null);
