@@ -154,7 +154,6 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
 
           for (const [name, { image }] of Object.entries(icons)) {
             const fileName = `${name}.png`;
-            console.log("addIconRes : ", androidFolderNames[i], fileName);
 
             const { source } = await generateImageAsync(
               {
