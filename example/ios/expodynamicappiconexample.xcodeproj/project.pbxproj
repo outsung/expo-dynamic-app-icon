@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A37146F163C4C888DD5F47E /* red-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C406870069D472BA0D69FE5 /* red-Icon-60x60@2x.png */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3B5CA1948972491E92F4282F /* gray-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7E30638A21E43308A23B268 /* gray-Icon-60x60@3x.png */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		87ADB2CE5C4A44D5BED53683 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B5C2F75C334741821FA9A6 /* noop-file.swift */; };
+		76E274ADB7A14A16B6A2B53B /* red-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9C1E745CA054D34B5A91A03 /* red-Icon-60x60@3x.png */; };
 		96905EF65AED1B983A6B3ABC /* libPods-expodynamicappiconexample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-expodynamicappiconexample.a */; };
+		98B5530442F14993AA5F200B /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6AF69380524AE1AE49F306 /* noop-file.swift */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		17EA2B3924BF44DCA24985CB /* red-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C324C45A9A8468EBD949B2B /* red-Icon-60x60@2x.png */; };
-		E599CEF51A3C478797656D9C /* red-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 530B1FCFF8C8452D8BB58E14 /* red-Icon-60x60@3x.png */; };
-		889479A4CF4C4924A4E98DDA /* gray-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA1A23813DD42C5A60ECB7B /* gray-Icon-60x60@2x.png */; };
-		CDC96BE170414252A7EEC6EF /* gray-Icon-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861EDB815FB84ED3938BF72D /* gray-Icon-60x60@3x.png */; };
+		CE695A60DFD545A3A2768541 /* gray-Icon-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19E76434C414443E9381AFD3 /* gray-Icon-60x60@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,18 +29,18 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = expodynamicappiconexample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = expodynamicappiconexample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = expodynamicappiconexample/main.m; sourceTree = "<group>"; };
+		19E76434C414443E9381AFD3 /* gray-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "gray-Icon-60x60@2x.png"; path = "expodynamicappiconexample/DynamicAppIcons/gray-Icon-60x60@2x.png"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-expodynamicappiconexample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-expodynamicappiconexample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-expodynamicappiconexample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-expodynamicappiconexample.debug.xcconfig"; path = "Target Support Files/Pods-expodynamicappiconexample/Pods-expodynamicappiconexample.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-expodynamicappiconexample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-expodynamicappiconexample.release.xcconfig"; path = "Target Support Files/Pods-expodynamicappiconexample/Pods-expodynamicappiconexample.release.xcconfig"; sourceTree = "<group>"; };
-		99B5C2F75C334741821FA9A6 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "expodynamicappiconexample/noop-file.swift"; sourceTree = "<group>"; };
+		9C406870069D472BA0D69FE5 /* red-Icon-60x60@2x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "red-Icon-60x60@2x.png"; path = "expodynamicappiconexample/DynamicAppIcons/red-Icon-60x60@2x.png"; sourceTree = "<group>"; };
+		A7E30638A21E43308A23B268 /* gray-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "gray-Icon-60x60@3x.png"; path = "expodynamicappiconexample/DynamicAppIcons/gray-Icon-60x60@3x.png"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = expodynamicappiconexample/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		BE6AF69380524AE1AE49F306 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "expodynamicappiconexample/noop-file.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F9C1E745CA054D34B5A91A03 /* red-Icon-60x60@3x.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "red-Icon-60x60@3x.png"; path = "expodynamicappiconexample/DynamicAppIcons/red-Icon-60x60@3x.png"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-expodynamicappiconexample/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		7C324C45A9A8468EBD949B2B /* red-Icon-60x60@2x.png */ = {isa = PBXFileReference; name = "red-Icon-60x60@2x.png"; path = "expodynamicappiconexample/DynamicAppIcons/red-Icon-60x60@2x.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		530B1FCFF8C8452D8BB58E14 /* red-Icon-60x60@3x.png */ = {isa = PBXFileReference; name = "red-Icon-60x60@3x.png"; path = "expodynamicappiconexample/DynamicAppIcons/red-Icon-60x60@3x.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9BA1A23813DD42C5A60ECB7B /* gray-Icon-60x60@2x.png */ = {isa = PBXFileReference; name = "gray-Icon-60x60@2x.png"; path = "expodynamicappiconexample/DynamicAppIcons/gray-Icon-60x60@2x.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		861EDB815FB84ED3938BF72D /* gray-Icon-60x60@3x.png */ = {isa = PBXFileReference; name = "gray-Icon-60x60@3x.png"; path = "expodynamicappiconexample/DynamicAppIcons/gray-Icon-60x60@3x.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +66,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				99B5C2F75C334741821FA9A6 /* noop-file.swift */,
-				D9F0B7DBB3C849D3B7E45042 /* DynamicAppIcons */,
+				BE6AF69380524AE1AE49F306 /* noop-file.swift */,
+				9637188F1F2E4EB2A7DB3513 /* DynamicAppIcons */,
 			);
 			name = expodynamicappiconexample;
 			sourceTree = "<group>";
@@ -119,6 +119,18 @@
 			name = expodynamicappiconexample;
 			sourceTree = "<group>";
 		};
+		9637188F1F2E4EB2A7DB3513 /* DynamicAppIcons */ = {
+			isa = PBXGroup;
+			children = (
+				9C406870069D472BA0D69FE5 /* red-Icon-60x60@2x.png */,
+				F9C1E745CA054D34B5A91A03 /* red-Icon-60x60@3x.png */,
+				19E76434C414443E9381AFD3 /* gray-Icon-60x60@2x.png */,
+				A7E30638A21E43308A23B268 /* gray-Icon-60x60@3x.png */,
+			);
+			name = DynamicAppIcons;
+			path = "";
+			sourceTree = "<group>";
+		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,18 +155,6 @@
 				92DBD88DE9BF7D494EA9DA96 /* expodynamicappiconexample */,
 			);
 			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
-		D9F0B7DBB3C849D3B7E45042 /* DynamicAppIcons */ = {
-			isa = PBXGroup;
-			children = (
-				7C324C45A9A8468EBD949B2B /* red-Icon-60x60@2x.png */,
-				530B1FCFF8C8452D8BB58E14 /* red-Icon-60x60@3x.png */,
-				9BA1A23813DD42C5A60ECB7B /* gray-Icon-60x60@2x.png */,
-				861EDB815FB84ED3938BF72D /* gray-Icon-60x60@3x.png */,
-			);
-			name = DynamicAppIcons;
-			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,10 +220,10 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				17EA2B3924BF44DCA24985CB /* red-Icon-60x60@2x.png in Resources */,
-				E599CEF51A3C478797656D9C /* red-Icon-60x60@3x.png in Resources */,
-				889479A4CF4C4924A4E98DDA /* gray-Icon-60x60@2x.png in Resources */,
-				CDC96BE170414252A7EEC6EF /* gray-Icon-60x60@3x.png in Resources */,
+				0A37146F163C4C888DD5F47E /* red-Icon-60x60@2x.png in Resources */,
+				76E274ADB7A14A16B6A2B53B /* red-Icon-60x60@3x.png in Resources */,
+				CE695A60DFD545A3A2768541 /* gray-Icon-60x60@2x.png in Resources */,
+				3B5CA1948972491E92F4282F /* gray-Icon-60x60@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +315,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				87ADB2CE5C4A44D5BED53683 /* noop-file.swift in Sources */,
+				98B5530442F14993AA5F200B /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,7 +345,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = expo.modules.dynamicappicon.example;
-				PRODUCT_NAME = "expodynamicappiconexample";
+				PRODUCT_NAME = expodynamicappiconexample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -371,7 +371,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = expo.modules.dynamicappicon.example;
-				PRODUCT_NAME = "expodynamicappiconexample";
+				PRODUCT_NAME = expodynamicappiconexample;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -509,9 +509,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin PBXVariantGroup section */
-/* End PBXVariantGroup section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

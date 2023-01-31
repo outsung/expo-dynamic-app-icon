@@ -5,26 +5,11 @@ public class ExpoDynamicAppIconModule: Module {
     
     Name("ExpoDynamicAppIcon")
 
-
-    Function("setAppIconWithoutAlert") { (name:String) -> String in
-      setAppIconWithoutAlert(name)
-      
-      return name
-    }
-
     Function("setAppIcon") { (name:String) -> String in
-      UIApplication.shared.setAlternateIconName(name) { (error) in
-        if let error = error {
-            print(error.localizedDescription)
-        }
-      }
+      setAppIconWithoutAlert(name)
+
       return name
     }
-
-    Function("getIconName") {
-      return "Hello world! 👋"
-    }
-
   }
 
   private func setAppIconWithoutAlert(_ iconName: String?) {

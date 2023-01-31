@@ -8,8 +8,12 @@ import expo.modules.core.interfaces.ReactActivityLifecycleListener
 
 import java.util.ArrayList;
 
+
 object SharedObject {
+  var packageName = ""
   var classesToKill = ArrayList<String>()
+  var icon = ""
+  var pm:PackageManager? = null
 }
 
 
@@ -17,11 +21,16 @@ class ExpoDynamicAppIconReactActivityLifecycleListener : ReactActivityLifecycleL
 
   override fun onPause(activity: Activity) {
     SharedObject.classesToKill.forEach{ cls ->
-      activity.packageManager.setComponentEnabledSetting(
-        ComponentName(activity.packageName, cls),
-        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-        PackageManager.DONT_KILL_APP
-      )
+      if(SharedObject.pm != null){
+        
+        if(cls != SharedObject.icon){
+          SharedObject.pm?.setComponentEnabledSetting(
+            ComponentName(SharedObject.packageName, cls),
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+          )
+        }
+      }
     }
 
     SharedObject.classesToKill.clear()
