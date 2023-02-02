@@ -5,7 +5,7 @@ Programmatically change the app icon in Expo.
 ## Install
 
 ```
-npx expo install rn-dynamic-app-icon
+npx expo install expo-dynamic-app-icon
 ```
 
 ## Set icon file
@@ -30,7 +30,37 @@ add plugins in `app.json`
     ]
 ```
 
-## Use setAppIcon
+## Check AndroidManifest (for android)
+
+```
+expo prebuild
+```
+
+check added line
+[AndroidManifest.xml](./example/android/app/src/main/AndroidManifest.xml#L33-L44)
+
+```xml
+  ...
+    <activity-alias android:name="expo.modules.dynamicappicon.example.MainActivityred" android:enabled="false" android:exported="true" android:icon="@mipmap/red" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+    <activity-alias android:name="expo.modules.dynamicappicon.example.MainActivitygray" android:enabled="false" android:exported="true" android:icon="@mipmap/gray" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+  ...
+```
+
+## Create new `expo-dev-client`
+
+create a new `expo-dev-client` and begin using `expo-dynamic-app-icon`
+
+## Use `setAppIcon`
 
 ```typescript
 import { setAppIcon } from "expo-dynamic-app-icon";
