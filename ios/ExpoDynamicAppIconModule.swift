@@ -6,7 +6,7 @@ public class ExpoDynamicAppIconModule: Module {
     Name("ExpoDynamicAppIcon")
 
     Function("setAppIcon") { (name:String) -> String in
-      setAppIconWithoutAlert(name)
+      self.setAppIconWithoutAlert(name)
 
       return name
     }
