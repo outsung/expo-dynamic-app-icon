@@ -10,6 +10,10 @@ public class ExpoDynamicAppIconModule: Module {
 
       return name
     }
+
+    Function("getAppIcon") { () -> String in
+      return UIApplication.shared.alternateIconName ?? "DEFAULT"
+    }
   }
 
   private func setAppIconWithoutAlert(_ iconName: String?) {

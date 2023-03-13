@@ -1,44 +1,36 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, Text, View } from "react-native";
 
-import * as ExpoDynamicAppIcon from "expo-dynamic-app-icon";
+import { getAppIcon, setAppIcon } from "expo-dynamic-app-icon";
+import { useState } from "react";
 
 export default function App() {
+  const [iconName, setIconName] = useState<string>();
+
   return (
-    <View style={styles.container}>
-      <Text>변경</Text>
-      <View
-        style={{
-          marginBottom: 16,
-          marginTop: 8,
-          flexDirection: "row",
-          width: "80%",
-          justifyContent: "space-around",
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => {
-            console.log(ExpoDynamicAppIcon.setAppIcon("red"));
-          }}
-        >
-          <Text>red로 변경</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            console.log(ExpoDynamicAppIcon.setAppIcon("gray"));
-          }}
-        >
-          <Text>gray로 변경</Text>
-        </TouchableOpacity>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <View style={{ marginBottom: 16 }}>
+        <Button title="get icon!" onPress={() => setIconName(getAppIcon())} />
+        <Text>{iconName || "Press Button!"}</Text>
       </View>
+
+      <View style={{ marginBottom: 16 }}>
+        <Button
+          title="change red icon"
+          onPress={() => console.log(setAppIcon("red"))}
+        />
+      </View>
+
+      <Button
+        title="change gray icon"
+        onPress={() => console.log(setAppIcon("gray"))}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

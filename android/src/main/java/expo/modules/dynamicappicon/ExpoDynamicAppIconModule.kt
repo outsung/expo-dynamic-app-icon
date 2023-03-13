@@ -33,10 +33,20 @@ class ExpoDynamicAppIconModule : Module() {
 
         return@Function name
       } catch (e: Exception) {
-        return@Function "ICON_INVALID"
+        return@Function false
       }
 
-      return@Function "test"
+      return@Function false
+    }
+
+    Function("getAppIcon") {
+      var componentClass:String = currentActivity.getComponentName().getClassName()
+
+      var currentIcon:String = if(!SharedObject.icon.isEmpty()) SharedObject.icon else componentClass
+      
+      var currentIconName:String = currentIcon.split("MainActivity")[1]
+
+      return@Function if(currentIconName.isEmpty()) "DEFAULT" else currentIconName
     }
   }
 
