@@ -33,7 +33,9 @@ const androidSize = [162, 108, 216, 324, 432];
 
 const iosFolderName = "DynamicAppIcons";
 const iosSize = 60;
-const iosScales = [2, 3];
+const ipad152Scale = 2.53;
+const ipad167Scale = 2.78;
+const iosScales = [2, 3, ipad152Scale, ipad167Scale];
 
 type IconSet = Record<string, { image: string; prerendered?: boolean }>;
 
@@ -197,9 +199,16 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
 
 // for ios
 function getIconName(name: string, size: number, scale?: number) {
-  const fileName = `${name}-Icon-${size}x${size}`;
+  
+  const fileName = `${name}-Icon-$${size}x${size}`;
 
   if (scale != null) {
+    if(scale == ipad152Scale){
+      return `${fileName}@2x~ipad.png`;
+    }
+    if(scale == ipad167Scale){
+      return `${fileName}@3x~ipad.png`;
+    }
     return `${fileName}@${scale}x.png`;
   }
   return fileName;
@@ -361,7 +370,7 @@ async function createIconsAsync(
       const fileName = path.join(iosFolderName, iconFileName);
       const outputPath = path.join(iosRoot, fileName);
 
-      const scaledSize = scale * iosSize;
+      const scaledSize = Math.ceil(scale * iosSize);
       const { source } = await generateImageAsync(
         {
           projectRoot: config.modRequest.projectRoot,
