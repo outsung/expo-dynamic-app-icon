@@ -36,10 +36,18 @@ const ipad152Scale = 2.53;
 const ipad167Scale = 2.78;
 const iosScales = [2, 3, ipad152Scale, ipad167Scale];
 
-type IconSet = Record<string, { image: string; prerendered?: boolean }>;
+type Platform = "ios" | "android";
+
+type Icon = { 
+  image: string; 
+  prerendered?: boolean, 
+  platforms?: Platform[]
+}
+
+type IconSet = Record<string, Icon>;
 
 type Props = {
-  icons: Record<string, { image: string; prerendered?: boolean }>;
+  icons: Record<string, Icon>;
 };
 
 function arrayToImages(images: string[]) {
@@ -47,6 +55,18 @@ function arrayToImages(images: string[]) {
     (prev, curr, i) => ({ ...prev, [i]: { image: curr } }),
     {}
   );
+}
+
+const findIconsForPlatform = (icons: IconSet, platform: Platform) => {
+  return Object.keys(icons)
+    .filter(key => {
+      const icon = icons[key];
+      if (icon.platforms) {
+        return icon['platforms'].includes(platform);
+      }
+      return true;
+    })
+    .reduce((prev, curr) => ({ ...prev, [curr]: icons[curr] }), {});
 }
 
 const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
@@ -63,14 +83,25 @@ const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
     prepped = _props;
   }
 
-  // for ios
-  config = withIconXcodeProject(config, { icons: prepped });
-  config = withIconInfoPlist(config, { icons: prepped });
-  config = withIconIosImages(config, { icons: prepped });
-
-  // for aos
-  config = withIconAndroidManifest(config, { icons: prepped });
-  config = withIconAndroidImages(config, { icons: prepped });
+  const iOSIcons = findIconsForPlatform(prepped, "ios");
+  const iOSIconsLength = Object.keys(iOSIcons).length;
+  if (iOSIconsLength > 0) {
+    console.log(`DynamicIcon: Adding ${iOSIconsLength} dynamic iOS icons!`, JSON.stringify(Object.keys(iOSIcons)));
+    config = withIconXcodeProject(config, { icons: iOSIcons });
+    config = withIconInfoPlist(config, { icons: iOSIcons });
+    config = withIconIosImages(config, { icons: iOSIcons });
+  } else {
+    console.log('DynamicIcon: No iOS icons found!');
+  }
+  const androidIcons = findIconsForPlatform(prepped, "android");
+  const androidIconsLength = Object.keys(androidIcons).length;
+  if (androidIconsLength > 0) {
+    console.log(`DynamicIcon: Adding ${androidIconsLength} dynamic Android icons!`, JSON.stringify(Object.keys(androidIcons)));
+    config = withIconAndroidManifest(config, { icons: androidIcons });
+    config = withIconAndroidImages(config, { icons: androidIcons });
+  } else {
+    console.log('DynamicIcon: No Android icons found!');
+  }
 
   return config;
 };

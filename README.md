@@ -19,11 +19,13 @@ add plugins in `app.json`
         {
           "red": { // icon name
             "image": "./assets/icon1.png", // icon path
-            "prerendered": true // for ios UIPrerenderedIcon option
+            "prerendered": true, // for ios UIPrerenderedIcon option
+            "platforms":  ["ios", "android"]  // optional platforms array. defaults to both platforms if emitted
           },
           "gray": {
             "image": "./assets/icon2.png",
-            "prerendered": true
+            "prerendered": true,
+            "platforms":  ["ios"]
           }
         }
       ]
