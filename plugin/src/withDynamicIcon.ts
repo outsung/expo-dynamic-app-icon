@@ -86,22 +86,16 @@ const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
   const iOSIcons = findIconsForPlatform(prepped, "ios");
   const iOSIconsLength = Object.keys(iOSIcons).length;
   if (iOSIconsLength > 0) {
-    console.log(`DynamicIcon: Adding ${iOSIconsLength} dynamic iOS icons!`, JSON.stringify(Object.keys(iOSIcons)));
     config = withIconXcodeProject(config, { icons: iOSIcons });
     config = withIconInfoPlist(config, { icons: iOSIcons });
     config = withIconIosImages(config, { icons: iOSIcons });
-  } else {
-    console.log('DynamicIcon: No iOS icons found!');
   }
   const androidIcons = findIconsForPlatform(prepped, "android");
   const androidIconsLength = Object.keys(androidIcons).length;
   if (androidIconsLength > 0) {
-    console.log(`DynamicIcon: Adding ${androidIconsLength} dynamic Android icons!`, JSON.stringify(Object.keys(androidIcons)));
     config = withIconAndroidManifest(config, { icons: androidIcons });
     config = withIconAndroidImages(config, { icons: androidIcons });
-  } else {
-    console.log('DynamicIcon: No Android icons found!');
-  }
+  } 
 
   return config;
 };
