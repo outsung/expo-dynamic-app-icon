@@ -16,9 +16,8 @@ import path from "path";
 import pbxFile from "xcode/lib/pbxFile";
 
 const {
-  addMetaDataItemToMainApplication,
   getMainApplicationOrThrow,
-  addUsesLibraryItemToMainApplication,
+  getMainActivityOrThrow,
 } = AndroidConfig.Manifest;
 
 const androidFolderPath = ["app", "src", "main", "res"];
@@ -33,12 +32,22 @@ const androidSize = [162, 108, 216, 324, 432];
 
 const iosFolderName = "DynamicAppIcons";
 const iosSize = 60;
-const iosScales = [2, 3];
+const ipad152Scale = 2.53;
+const ipad167Scale = 2.78;
+const iosScales = [2, 3, ipad152Scale, ipad167Scale];
 
-type IconSet = Record<string, { image: string; prerendered?: boolean }>;
+type Platform = "ios" | "android";
+
+type Icon = { 
+  image: string; 
+  prerendered?: boolean, 
+  platforms?: Platform[]
+}
+
+type IconSet = Record<string, Icon>;
 
 type Props = {
-  icons: Record<string, { image: string; prerendered?: boolean }>;
+  icons: Record<string, Icon>;
 };
 
 function arrayToImages(images: string[]) {
@@ -46,6 +55,18 @@ function arrayToImages(images: string[]) {
     (prev, curr, i) => ({ ...prev, [i]: { image: curr } }),
     {}
   );
+}
+
+const findIconsForPlatform = (icons: IconSet, platform: Platform) => {
+  return Object.keys(icons)
+    .filter(key => {
+      const icon = icons[key];
+      if (icon.platforms) {
+        return icon['platforms'].includes(platform);
+      }
+      return true;
+    })
+    .reduce((prev, curr) => ({ ...prev, [curr]: icons[curr] }), {});
 }
 
 const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
@@ -62,14 +83,19 @@ const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
     prepped = _props;
   }
 
-  // for ios
-  config = withIconXcodeProject(config, { icons: prepped });
-  config = withIconInfoPlist(config, { icons: prepped });
-  config = withIconIosImages(config, { icons: prepped });
-
-  // for aos
-  config = withIconAndroidManifest(config, { icons: prepped });
-  config = withIconAndroidImages(config, { icons: prepped });
+  const iOSIcons = findIconsForPlatform(prepped, "ios");
+  const iOSIconsLength = Object.keys(iOSIcons).length;
+  if (iOSIconsLength > 0) {
+    config = withIconXcodeProject(config, { icons: iOSIcons });
+    config = withIconInfoPlist(config, { icons: iOSIcons });
+    config = withIconIosImages(config, { icons: iOSIcons });
+  }
+  const androidIcons = findIconsForPlatform(prepped, "android");
+  const androidIconsLength = Object.keys(androidIcons).length;
+  if (androidIconsLength > 0) {
+    config = withIconAndroidManifest(config, { icons: androidIcons });
+    config = withIconAndroidImages(config, { icons: androidIcons });
+  } 
 
   return config;
 };
@@ -78,6 +104,7 @@ const withDynamicIcon: ConfigPlugin<string[] | IconSet | void> = (
 const withIconAndroidManifest: ConfigPlugin<Props> = (config, { icons }) => {
   return withAndroidManifest(config, (config) => {
     const mainApplication: any = getMainApplicationOrThrow(config.modResults);
+    const mainActivity = getMainActivityOrThrow(config.modResults);
 
     const iconNamePrefix = `${config.android!.package}.MainActivity`;
     const iconNames = Object.keys(icons);
@@ -93,14 +120,14 @@ const withIconAndroidManifest: ConfigPlugin<Props> = (config, { icons }) => {
             "android:icon": `@mipmap/${iconName}`,
             "android:targetActivity": ".MainActivity",
           },
-          "intent-filter": [
+          "intent-filter": [...mainActivity["intent-filter"] || [
             {
               action: [{ $: { "android:name": "android.intent.action.MAIN" } }],
               category: [
                 { $: { "android:name": "android.intent.category.LAUNCHER" } },
               ],
             },
-          ],
+          ]]
         })),
       ];
     }
@@ -197,9 +224,16 @@ const withIconAndroidImages: ConfigPlugin<Props> = (config, { icons }) => {
 
 // for ios
 function getIconName(name: string, size: number, scale?: number) {
-  const fileName = `${name}-Icon-${size}x${size}`;
+  
+  const fileName = `${name}-Icon-$${size}x${size}`;
 
   if (scale != null) {
+    if(scale == ipad152Scale){
+      return `${fileName}@2x~ipad.png`;
+    }
+    if(scale == ipad167Scale){
+      return `${fileName}@3x~ipad.png`;
+    }
     return `${fileName}@${scale}x.png`;
   }
   return fileName;
@@ -361,7 +395,7 @@ async function createIconsAsync(
       const fileName = path.join(iosFolderName, iconFileName);
       const outputPath = path.join(iosRoot, fileName);
 
-      const scaledSize = scale * iosSize;
+      const scaledSize = Math.ceil(scale * iosSize);
       const { source } = await generateImageAsync(
         {
           projectRoot: config.modRequest.projectRoot,
